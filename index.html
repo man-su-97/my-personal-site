@@ -12,13 +12,16 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css">
+<link rel="stylesheet" href="css/styles.css?v=3">
 </head>
 <body>
 
 <!-- Grain: a single fixed feTurbulence layer. Texture stops the flat-black
      "template" look without adding any color of its own. -->
 <div class="grain" aria-hidden="true"></div>
+
+<!-- Scroll progress: a mint hairline that fills as you read. -->
+<div class="progress" id="progress" aria-hidden="true"></div>
 
 <header class="nav">
   <a class="nav-mark" href="#top" aria-label="Home">SM</a>
@@ -49,6 +52,7 @@
         <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/suman-mandal-130024186/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
+      <p class="typed-line reveal d4" aria-hidden="true">&gt;&nbsp;<span id="typed"></span><span class="caret"></span></p>
     </div>
 
     <!-- Signature: interactive RAG pipeline. Each node is a real stage of the
@@ -300,6 +304,6 @@
   </div>
 </div>
 
-<script src="js/app.js" defer></script>
+<script src="js/app.js?v=3" defer></script>
 </body>
 </html>

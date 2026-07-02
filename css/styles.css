@@ -36,6 +36,17 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
+/* Scroll progress: hairline above everything, fills left→right. */
+.progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background: var(--mint);
+  z-index: 60;
+}
+
 /* Grain overlay: ~4% opacity is felt, not seen. pointer-events off. */
 .grain {
   position: fixed;
@@ -136,7 +147,26 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   font-weight: 600;
   letter-spacing: -0.02em;
   margin: 0 0 28px;
+  position: relative;
+  display: inline-block;
+  padding-bottom: 8px;
 }
+
+/* underline grows in when the heading scrolls into view */
+.section h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 100%;
+  background: var(--mint);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.6s var(--ease) 0.15s;
+}
+
+.section h2.in::after { transform: scaleX(1); }
 
 /* ---------- hero ---------- */
 
@@ -175,6 +205,29 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 .thesis strong, .about-strip strong { color: var(--text); font-weight: 600; }
 
 .cta-row { display: flex; flex-wrap: wrap; gap: 12px; }
+
+/* typed rotator: one mono line, real work phrases, blinking caret */
+.typed-line {
+  font-family: var(--mono);
+  font-size: 0.85rem;
+  color: var(--muted);
+  margin: 26px 0 0;
+  min-height: 1.4em;   /* reserve the line so text below never jumps */
+}
+
+#typed { color: var(--mint); }
+
+.caret {
+  display: inline-block;
+  width: 8px;
+  height: 1.05em;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  background: var(--mint);
+  animation: caret-blink 1.05s steps(1) infinite;
+}
+
+@keyframes caret-blink { 50% { opacity: 0; } }
 
 .btn {
   display: inline-block;
@@ -573,6 +626,9 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   .panel-content { animation: none; }
   .glass { transition: none; }
   .btn, .cell, .node { transition: none; }
+  .caret { animation: none; }
+  .section h2::after { transform: scaleX(1); transition: none; }
+  .progress { display: none; }
 }
 
 /* ---------- responsive ---------- */
