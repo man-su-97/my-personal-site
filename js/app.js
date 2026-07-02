@@ -1,5 +1,5 @@
 /* Portfolio interactions — no dependencies.
-   1. scroll reveal   2. pipeline widget   3. command menu   4. canvas dino */
+   1. scroll reveal + progress   2. typed rotator   3. pipeline widget   4. canvas dino */
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -26,7 +26,7 @@ if (bar && !reduce) {
   onScroll();
 }
 
-/* ---------- 1c. typed rotator: real work, typed live ---------- */
+/* ---------- 2. typed rotator: real work, typed live ---------- */
 const typedEl = document.getElementById("typed");
 if (typedEl) {
   const phrases = [
@@ -52,7 +52,7 @@ if (typedEl) {
   }
 }
 
-/* ---------- 2. pipeline widget ---------- */
+/* ---------- 3. pipeline widget ---------- */
 const nodes = document.querySelectorAll(".node");
 const panels = document.querySelectorAll(".panel-content");
 
@@ -70,165 +70,141 @@ nodes.forEach((n) => {
   n.addEventListener("mouseenter", () => selectStage(n.dataset.stage));
 });
 
-/* ---------- 3. command menu ---------- */
-const overlay = document.getElementById("cmdk");
-const input = document.getElementById("cmdk-input");
-const list = document.getElementById("cmdk-list");
-let items = [];
-let sel = 0;
-
-function openMenu() {
-  overlay.hidden = false;
-  input.value = "";
-  filter("");
-  input.focus();
-}
-
-function closeMenu() { overlay.hidden = true; }
-
-function visibleItems() { return items.filter((li) => !li.hidden); }
-
-function setSel(i) {
-  const vis = visibleItems();
-  if (!vis.length) return;
-  sel = (i + vis.length) % vis.length;
-  items.forEach((li) => li.classList.remove("sel"));
-  vis[sel].classList.add("sel");
-  vis[sel].scrollIntoView({ block: "nearest" });
-}
-
-function filter(q) {
-  q = q.toLowerCase();
-  items.forEach((li) => { li.hidden = q && !li.textContent.toLowerCase().includes(q); });
-  setSel(0);
-}
-
-function run(li) {
-  if (!li) return;
-  const { action, target, value } = li.dataset;
-  if (action === "goto") {
-    closeMenu();
-    document.querySelector(target)?.scrollIntoView({ behavior: reduce ? "auto" : "smooth" });
-  } else if (action === "copy") {
-    navigator.clipboard?.writeText(value);
-    li.querySelector("em").textContent = "Copied";
-    setTimeout(closeMenu, 550);
-  } else if (action === "open") {
-    window.open(value, "_blank", "noopener");
-    closeMenu();
-  }
-}
-
-items = Array.from(list.querySelectorAll("li"));
-items.forEach((li) => li.addEventListener("click", () => run(li)));
-
-document.getElementById("cmdk-open").addEventListener("click", openMenu);
-
-document.addEventListener("keydown", (e) => {
-  if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === "k") { e.preventDefault(); overlay.hidden ? openMenu() : closeMenu(); return; }
-  if (overlay.hidden) return;
-  if (e.key === "Escape") closeMenu();
-  else if (e.key === "ArrowDown") { e.preventDefault(); setSel(sel + 1); }
-  else if (e.key === "ArrowUp") { e.preventDefault(); setSel(sel - 1); }
-  else if (e.key === "Enter") run(visibleItems()[sel]);
-});
-
-input.addEventListener("input", () => filter(input.value));
-overlay.addEventListener("click", (e) => { if (e.target === overlay) closeMenu(); });
-
-/* ---------- 4. bespoke dino (canvas, palette-native) ---------- */
+/* ---------- 4. bespoke dino (canvas, palette-native) ----------
+   Crisp at any width (devicePixelRatio-aware) and waits for the
+   player to start — it never dies on its own. */
 const cv = document.getElementById("dino");
 const scoreEl = document.getElementById("dino-score");
 
 if (cv && cv.getContext) {
   const ctx = cv.getContext("2d");
-  const W = cv.width, H = cv.height;
-  const GROUND = H - 26;
-  const MINT = "#10B981", MUTED = "#71717A", LINE = "#26262B";
+  const MINT = "#10B981", MUTED = "#71717A", LINE = "#26262B", BG_TXT = "#3F3F46";
 
-  let dino, cacti, speed, score, dead, raf;
+  let W, H, GROUND;
+  let dino, cacti, speed, score, state, raf; // state: "idle" | "run" | "dead"
+
+  function fit() {
+    const rect = cv.parentElement.getBoundingClientRect();
+    const width = Math.min(720, rect.width - 28);
+    const dpr = window.devicePixelRatio || 1;
+    W = Math.max(300, width);
+    H = Math.round(W * 0.19);
+    cv.width = Math.round(W * dpr);
+    cv.height = Math.round(H * dpr);
+    cv.style.width = W + "px";
+    cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    GROUND = H - 30;
+  }
 
   function reset() {
-    dino = { x: 46, y: GROUND, vy: 0, w: 22, h: 30 };
+    dino = { x: 42, y: 0, vy: 0, w: 26, h: 26 };
     cacti = [];
-    speed = 4.2;
+    speed = W / 170;
     score = 0;
-    dead = false;
+    scoreEl.textContent = "0";
+  }
+
+  function drawDino(color) {
+    const gy = GROUND - dino.y;                    // dino.y = height above ground
+    ctx.fillStyle = color;
+    ctx.fillRect(dino.x, gy - dino.h + 8, dino.w, dino.h - 8);   // body
+    ctx.fillRect(dino.x + dino.w - 8, gy - dino.h - 4, 16, 14);  // head
+    ctx.fillRect(dino.x - 7, gy - dino.h + 12, 8, 5);            // tail
+    ctx.fillStyle = "#09090B";
+    ctx.fillRect(dino.x + dino.w + 2, gy - dino.h, 3, 3);        // eye
+  }
+
+  function drawGroundLine() {
+    ctx.strokeStyle = LINE;
+    ctx.beginPath();
+    ctx.moveTo(0, GROUND + 0.5);
+    ctx.lineTo(W, GROUND + 0.5);
+    ctx.stroke();
+  }
+
+  function drawIdle() {
+    ctx.clearRect(0, 0, W, H);
+    drawGroundLine();
+    drawDino(MINT);
+    ctx.fillStyle = BG_TXT;
+    ctx.font = "12px 'JetBrains Mono', monospace";
+    ctx.textAlign = "center";
+    ctx.fillText("press Space or click to start", W / 2, GROUND - 22);
   }
 
   function jump() {
-    if (dead) { reset(); raf = requestAnimationFrame(step); return; }
-    if (dino.y >= GROUND) dino.vy = -11.5;
+    if (state === "idle" || state === "dead") {
+      reset();
+      state = "run";
+      cancelAnimationFrame(raf);
+      raf = requestAnimationFrame(step);
+      return;
+    }
+    if (dino.y === 0) dino.vy = 8.4;
   }
 
-  cv.addEventListener("pointerdown", jump);
-  document.addEventListener("keydown", (e) => {
-    if (e.code === "Space" && overlay.hidden) {
-      const tag = document.activeElement?.tagName;
-      if (tag !== "INPUT" && tag !== "TEXTAREA") { e.preventDefault(); jump(); }
-    }
-  });
-
   function step() {
-    // physics
-    dino.vy += 0.62;
-    dino.y = Math.min(dino.y + dino.vy, GROUND);
+    // physics: y is height above ground (0 = standing)
+    dino.vy -= 0.45;
+    dino.y = Math.max(0, dino.y + dino.vy);
+    if (dino.y === 0) dino.vy = 0;
 
-    if (Math.random() < 0.016 && (!cacti.length || W - cacti[cacti.length - 1].x > 240)) {
-      const h = 18 + Math.random() * 16;
-      cacti.push({ x: W + 10, w: 10 + Math.random() * 8, h });
+    if (Math.random() < 0.015 && (!cacti.length || W - cacti[cacti.length - 1].x > W / 3.2)) {
+      cacti.push({ x: W + 12, w: 9 + Math.random() * 8, h: 16 + Math.random() * 14 });
     }
     for (const c of cacti) c.x -= speed;
-    while (cacti.length && cacti[0].x < -30) { cacti.shift(); score++; scoreEl.textContent = score; if (score % 8 === 0) speed += 0.25; }
+    while (cacti.length && cacti[0].x < -30) {
+      cacti.shift();
+      score++;
+      scoreEl.textContent = score;
+      if (score % 7 === 0) speed += 0.3;
+    }
 
-    // collision: axis-aligned boxes, 4px forgiveness on each side
-    const dinoBottom = dino.y + dino.h;
+    // collision: overlap in x while too low to clear the cactus
     for (const c of cacti) {
-      const cactusTop = GROUND + dino.h - c.h;
       const overlapX = dino.x + dino.w - 4 > c.x && dino.x + 4 < c.x + c.w;
-      const overlapY = dinoBottom - 2 > cactusTop;
-      if (overlapX && overlapY) { dead = true; break; }
+      if (overlapX && dino.y < c.h - 3) { state = "dead"; break; }
     }
 
     // draw
     ctx.clearRect(0, 0, W, H);
-    ctx.strokeStyle = LINE;
-    ctx.beginPath(); ctx.moveTo(0, GROUND + dino.h + 0.5); ctx.lineTo(W, GROUND + dino.h + 0.5); ctx.stroke();
-
-    // dino: minimal blocks in mint
-    ctx.fillStyle = dead ? MUTED : MINT;
-    const dy = dino.y;
-    ctx.fillRect(dino.x, dy, dino.w, dino.h);                 // body
-    ctx.fillRect(dino.x + dino.w - 6, dy - 10, 14, 12);       // head
-    ctx.fillStyle = "#09090B";
-    ctx.fillRect(dino.x + dino.w + 2, dy - 7, 3, 3);          // eye
-
-    // cacti: muted blocks
+    drawGroundLine();
     ctx.fillStyle = MUTED;
-    for (const c of cacti) ctx.fillRect(c.x, GROUND + dino.h - c.h, c.w, c.h);
+    for (const c of cacti) ctx.fillRect(c.x, GROUND - c.h, c.w, c.h);
+    drawDino(state === "dead" ? MUTED : MINT);
 
-    if (dead) {
-      ctx.fillStyle = MUTED;
+    if (state === "dead") {
+      ctx.fillStyle = BG_TXT;
       ctx.font = "12px 'JetBrains Mono', monospace";
       ctx.textAlign = "center";
-      ctx.fillText("— click to restart —", W / 2, 44);
-      cancelAnimationFrame(raf); // freeze the end state; jump() resets
+      ctx.fillText("ouch — Space or click to retry", W / 2, GROUND - 22);
     } else {
       raf = requestAnimationFrame(step);
     }
   }
 
+  cv.addEventListener("pointerdown", jump);
+  document.addEventListener("keydown", (e) => {
+    if (e.code !== "Space") return;
+    const tag = document.activeElement?.tagName;
+    if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON" || tag === "A") return;
+    e.preventDefault();
+    jump();
+  });
+
+  let resizeTimer;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => { fit(); reset(); state = "idle"; cancelAnimationFrame(raf); drawIdle(); }, 150);
+  });
+
+  fit();
   reset();
+  state = "idle";
   if (reduce) {
-    // Reduced motion: draw one static frame, no game loop.
-    dino.y = GROUND;
-    ctx.clearRect(0, 0, W, H);
-    ctx.fillStyle = MINT;
-    ctx.fillRect(dino.x, dino.y, dino.w, dino.h);
-    ctx.fillRect(dino.x + dino.w - 6, dino.y - 10, 14, 12);
-    ctx.strokeStyle = LINE;
-    ctx.beginPath(); ctx.moveTo(0, GROUND + dino.h + 0.5); ctx.lineTo(W, GROUND + dino.h + 0.5); ctx.stroke();
+    drawIdle(); // static frame; a click still starts it deliberately
   } else {
-    raf = requestAnimationFrame(step);
+    drawIdle();
   }
 }

@@ -12,7 +12,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="css/styles.css?v=4">
+<link rel="stylesheet" href="css/styles.css?v=5">
 </head>
 <body>
 
@@ -31,9 +31,6 @@
     <a href="#stack">Stack</a>
     <a href="#contact">Contact</a>
   </nav>
-  <button class="kbd-hint" id="cmdk-open" aria-haspopup="dialog" aria-controls="cmdk" title="Command menu">
-    <kbd>Ctrl</kbd><kbd>K</kbd>
-  </button>
 </header>
 
 <main id="top">
@@ -48,7 +45,10 @@
         safety — shipped as production FastAPI services with Next.js frontends.
       </p>
       <div class="cta-row reveal d3">
-        <a class="btn btn-primary" href="Suman_Mandal_Resume.pdf" download>Download résumé</a>
+        <a class="btn btn-primary" href="Suman_Mandal_Resume.pdf" download>
+          <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 13h10"/></svg>
+          Download Resume
+        </a>
         <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">GitHub</a>
         <a class="btn" href="https://www.linkedin.com/in/suman-mandal-130024186/" target="_blank" rel="noopener">LinkedIn</a>
       </div>
@@ -106,18 +106,23 @@
           <a class="repo-link" href="https://github.com/man-su-97/news-app-server" target="_blank" rel="noopener">View repo ↗</a>
         </div>
 
-        <div class="terminal" aria-label="Example API call">
-          <div class="term-bar"><span></span><span></span><span></span><em>POST /ai/ask</em></div>
-          <pre><code>$ curl -X POST /ai/ask -d '{"question":"What did the central bank decide?","mode":"hybrid"}'
+        <p>Ask a question about the news in plain English. The system finds the most
+        relevant articles (matching by <strong>meaning and exact keywords</strong>, fused),
+        and the AI answers <strong>only from those articles</strong> — every claim carries a
+        numbered citation back to its source. If nothing relevant exists, it says so
+        instead of making something up.</p>
 
-{
-  "answer": "The bank held rates steady, citing cooling inflation [1][2].",
-  "citations": [
-    { "ref": 1, "title": "Rates held as inflation eases" },
-    { "ref": 2, "title": "Policy panel votes 5-1" }
-  ]
-}  <span class="ok"># grounded — only cited sources returned; empty retrieval → refusal</span></code></pre>
+        <div class="flow" aria-label="How a question becomes a cited answer">
+          <span class="flow-step">“What did the central bank decide?”</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">hybrid retrieval</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step">grounded answer</span>
+          <span class="flow-arrow">→</span>
+          <span class="flow-step cite">sources cited [1][2]</span>
         </div>
+
+        <ul class="chips"><li>FastAPI</li><li>pgvector</li><li>LangGraph</li><li>OpenAI</li><li>GitHub Actions CI</li></ul>
 
         <div class="glass">
           <ul>
@@ -268,8 +273,14 @@
     <h2>Contact</h2>
     <p class="contact-line">Open to GenAI / full-stack roles. Email is fastest.</p>
     <div class="cta-row">
-      <a class="btn btn-primary" href="mailto:sumanmandal15135@gmail.com">sumanmandal15135@gmail.com</a>
-      <a class="btn" href="Suman_Mandal_Resume.pdf" download>Résumé (PDF)</a>
+      <a class="btn btn-primary" href="mailto:sumanmandal15135@gmail.com">
+        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1.5" y="3" width="13" height="10" rx="1.5"/><path d="m2 4 6 5 6-5"/></svg>
+        sumanmandal15135@gmail.com
+      </a>
+      <a class="btn" href="Suman_Mandal_Resume.pdf" download>
+        <svg viewBox="0 0 16 16" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2v8m0 0L5 7m3 3 3-3M3 13h10"/></svg>
+        Resume (PDF)
+      </a>
     </div>
   </section>
 
@@ -278,32 +289,12 @@
 <footer class="footer">
   <!-- Bespoke dino: drawn on canvas in the site palette. Click / Space to jump. -->
   <div class="dino-shell reveal">
-    <canvas id="dino" width="720" height="140" aria-label="Minimal dinosaur runner — click or press Space to jump"></canvas>
-    <p class="dino-hint">click or press <kbd>Space</kbd> to jump · <span id="dino-score">0</span></p>
+    <canvas id="dino" aria-label="Minimal dinosaur runner — click or press Space to play"></canvas>
+    <p class="dino-hint">click or press <kbd>Space</kbd> to play · score <span id="dino-score">0</span></p>
   </div>
   <p class="footer-note">© 2026 Suman Mandal · plain HTML/CSS/JS — no framework needed for a page this size</p>
 </footer>
 
-<!-- ============ COMMAND MENU ============ -->
-<div class="cmdk-overlay" id="cmdk" role="dialog" aria-modal="true" aria-label="Command menu" hidden>
-  <div class="cmdk">
-    <input type="text" id="cmdk-input" placeholder="Type a command or search…" autocomplete="off" spellcheck="false">
-    <ul id="cmdk-list" role="listbox">
-      <li data-action="goto" data-target="#work"><em>Go</em> Selected work</li>
-      <li data-action="goto" data-target="#experience"><em>Go</em> Experience</li>
-      <li data-action="goto" data-target="#stack"><em>Go</em> Stack</li>
-      <li data-action="goto" data-target="#contact"><em>Go</em> Contact</li>
-      <li data-action="copy" data-value="sumanmandal15135@gmail.com"><em>Copy</em> Email address</li>
-      <li data-action="open" data-value="Suman_Mandal_Resume.pdf"><em>Open</em> Résumé (PDF)</li>
-      <li data-action="open" data-value="https://github.com/man-su-97"><em>Open</em> GitHub profile</li>
-      <li data-action="open" data-value="https://github.com/man-su-97/news-app-server"><em>Open</em> news-app-server</li>
-      <li data-action="open" data-value="https://github.com/man-su-97/Prism"><em>Open</em> PRISM</li>
-      <li data-action="open" data-value="https://www.linkedin.com/in/suman-mandal-130024186/"><em>Open</em> LinkedIn</li>
-    </ul>
-    <p class="cmdk-foot"><kbd>↑↓</kbd> navigate · <kbd>Enter</kbd> run · <kbd>Esc</kbd> close</p>
-  </div>
-</div>
-
-<script src="js/app.js?v=4" defer></script>
+<script src="js/app.js?v=5" defer></script>
 </body>
 </html>
