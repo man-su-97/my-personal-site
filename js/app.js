@@ -65,9 +65,18 @@ function selectStage(stage) {
   panels.forEach((p) => { p.hidden = p.dataset.for !== stage; });
 }
 
-nodes.forEach((n) => {
+nodes.forEach((n, i) => {
   n.addEventListener("click", () => selectStage(n.dataset.stage));
   n.addEventListener("mouseenter", () => selectStage(n.dataset.stage));
+  n.addEventListener("keydown", (e) => {
+    let j;
+    if (e.key === "ArrowRight" || e.key === "ArrowDown") j = (i + 1) % nodes.length;
+    else if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = (i - 1 + nodes.length) % nodes.length;
+    else return;
+    e.preventDefault();
+    nodes[j].focus();
+    selectStage(nodes[j].dataset.stage);
+  });
 });
 
 /* ---------- 4. bespoke dino (canvas, palette-native) ----------
@@ -185,8 +194,18 @@ if (cv && cv.getContext) {
   }
 
   cv.addEventListener("pointerdown", jump);
+
+  // Only steal Space while the dino is on screen — everywhere else it must
+  // keep scrolling the page.
+  let dinoVisible = false;
+  if ("IntersectionObserver" in window) {
+    new IntersectionObserver(([e]) => { dinoVisible = e.isIntersecting; }).observe(cv);
+  } else {
+    dinoVisible = true;
+  }
+
   document.addEventListener("keydown", (e) => {
-    if (e.code !== "Space") return;
+    if (e.code !== "Space" || !dinoVisible) return;
     const tag = document.activeElement?.tagName;
     if (tag === "INPUT" || tag === "TEXTAREA" || tag === "BUTTON" || tag === "A") return;
     e.preventDefault();

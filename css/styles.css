@@ -80,6 +80,7 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   gap: 20px;
   padding: 14px clamp(20px, 5vw, 56px);
   background: rgba(9, 9, 11, 0.8);
+  -webkit-backdrop-filter: blur(12px);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid var(--line);
 }
@@ -99,11 +100,14 @@ a:focus-visible, button:focus-visible, input:focus-visible {
 
 .nav-links { display: flex; gap: clamp(14px, 2.5vw, 28px); margin-right: auto; }
 
+/* padding + negative margin: same visual position, ~44px-tall touch target */
 .nav-links a {
   color: var(--muted);
   text-decoration: none;
   font-size: 0.85rem;
   font-family: var(--mono);
+  padding: 14px 5px;
+  margin: -14px -5px;
   transition: color 0.18s var(--ease);
 }
 
@@ -126,7 +130,7 @@ kbd {
    hero copy column is capped, so whitespace does the composition work. */
 main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
-.section { padding: clamp(56px, 9vw, 100px) 0 0; }
+.section { padding: clamp(56px, 9vw, 100px) 0 0; scroll-margin-top: 24px; /* keep headings clear of the sticky nav on anchor jumps */ }
 
 .section h2 {
   font-family: var(--display);
@@ -262,7 +266,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   background: transparent;
   border: 1px solid var(--line);
   border-radius: 9px;
-  padding: 8px 16px;
+  padding: 10px 16px;
   cursor: pointer;
   transition: all 0.22s var(--ease);
 }
@@ -364,6 +368,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   inset: auto 0 0 0;
   padding: 14px 26px 16px;
   background: rgba(20, 20, 23, 0.72);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   border-top: 1px solid rgba(16, 185, 129, 0.25);
   transform: translateY(101%);
@@ -538,7 +543,13 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
 @media (max-width: 860px) {
   .hero { grid-template-columns: 1fr; align-items: start; }
+  /* tablet: pair the cards two-up instead of jumping straight to one column */
+  .span7, .span5 { grid-column: span 6; }
+}
+
+@media (max-width: 640px) {
   .span7, .span5 { grid-column: span 12; }
+  .typed-line { min-height: 2.9em; } /* phrases wrap to 2 lines here — reserve both so nothing jumps */
 }
 
 @media (max-width: 560px) {
