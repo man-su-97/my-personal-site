@@ -8,7 +8,7 @@
 <meta property="og:title" content="Suman Mandal — GenAI & Full-Stack Engineer">
 <meta property="og:description" content="RAG pipelines, LangGraph agents, evaluation & safety — shipped as production FastAPI services with Next.js frontends.">
 <meta property="og:type" content="website">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236E40C9'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ESM%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2310B981'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='%2309090B' text-anchor='middle'%3ESM%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -16,184 +16,225 @@
 </head>
 <body>
 
+<!-- Grain: a single fixed feTurbulence layer. Texture stops the flat-black
+     "template" look without adding any color of its own. -->
+<div class="grain" aria-hidden="true"></div>
+
 <header class="nav">
   <a class="nav-mark" href="#top" aria-label="Home">SM</a>
   <nav class="nav-links" aria-label="Sections">
-    <a href="#about">About</a>
+    <a href="#work">Work</a>
     <a href="#experience">Experience</a>
-    <a href="#projects">Projects</a>
     <a href="#stack">Stack</a>
     <a href="#contact">Contact</a>
   </nav>
+  <button class="kbd-hint" id="cmdk-open" aria-haspopup="dialog" aria-controls="cmdk" title="Command menu">
+    <kbd>Ctrl</kbd><kbd>K</kbd>
+  </button>
 </header>
 
 <main id="top">
 
   <!-- ============ HERO ============ -->
   <section class="hero">
-    <p class="eyebrow reveal">GenAI &amp; Full-Stack Engineer · Kolkata, India</p>
-    <h1 class="reveal d1">Suman Mandal</h1>
-    <p class="thesis reveal d2">
-      I build LLM-powered products end to end — RAG pipelines, agents, and the
-      production engineering around them: evaluation, safety, and observability —
-      shipped as FastAPI services with Next.js frontends.
-    </p>
-    <div class="cta-row reveal d3">
-      <a class="btn btn-primary" href="https://github.com/man-su-97" target="_blank" rel="noopener">GitHub</a>
-      <a class="btn" href="https://www.linkedin.com/in/suman-mandal-130024186/" target="_blank" rel="noopener">LinkedIn</a>
-      <a class="btn" href="mailto:sumanmandal15135@gmail.com">Email me</a>
+    <div class="hero-copy">
+      <p class="eyebrow reveal">GenAI &amp; Full-Stack Engineer — Kolkata, India</p>
+      <h1 class="reveal d1">Suman<br>Mandal</h1>
+      <p class="thesis reveal d2">
+        I build LLM-powered products end to end — retrieval, agents, evaluation,
+        safety — shipped as production FastAPI services with Next.js frontends.
+      </p>
+      <div class="cta-row reveal d3">
+        <a class="btn btn-primary" href="Suman_Mandal_Resume.pdf" download>Download résumé</a>
+        <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">GitHub</a>
+        <a class="btn" href="https://www.linkedin.com/in/suman-mandal-130024186/" target="_blank" rel="noopener">LinkedIn</a>
+      </div>
     </div>
 
-    <!-- Signature: the RAG pipeline, animated -->
-    <div class="pipeline reveal d4" role="img" aria-label="RAG pipeline: ingest, chunk, embed, retrieve, fuse, generate with citations">
-      <span class="stage s1">ingest</span><span class="arrow">→</span><span class="stage s2">chunk</span><span class="arrow">→</span><span class="stage s3">embed</span><span class="arrow">→</span><span class="stage s4">retrieve</span><span class="arrow">→</span><span class="stage s5">fuse</span><span class="arrow">→</span><span class="stage s6">generate <em>✓ cited</em></span>
-    </div>
-  </section>
-
-  <!-- ============ ABOUT ============ -->
-  <section class="section" id="about">
-    <h2><span class="h-mark">//</span> About</h2>
-    <div class="about-grid">
-      <div class="avatar"><img src="images/profile.jpg" alt="Portrait of Suman Mandal" width="400" height="400" loading="lazy"></div>
-      <div class="about-text">
-        <p>
-          Full-stack developer with <strong>2+ years</strong> of production experience,
-          now specialising in <strong>GenAI / LLM engineering</strong>. At
-          <strong>A&amp;J Intelli Systems</strong> I lead the RAG pipeline behind an AI
-          analytics platform that turns CSV/Excel datasets into dashboards with a
-          natural-language chat interface.
-        </p>
-        <p>
-          I care about the engineering around the model as much as the model itself:
-          grounded generation with real citations, hybrid retrieval (semantic + full-text
-          fused by Reciprocal Rank Fusion), prompt-injection and PII guards, retrieval
-          metrics + RAGAS evaluation, and token/latency observability — all tested,
-          containerised, and gated by CI.
-        </p>
-        <p class="edu">B.Tech, Information Technology — Bengal Institute of Technology, Kolkata (2023)</p>
+    <!-- Signature: interactive RAG pipeline. Each node is a real stage of the
+         retrieval system I build; selecting one shows its real configuration. -->
+    <div class="pipeline-widget reveal d4">
+      <p class="widget-label">how my retrieval systems work — select a stage</p>
+      <div class="nodes" role="tablist" aria-label="RAG pipeline stages">
+        <button class="node active" role="tab" aria-selected="true" data-stage="ingest">Ingest</button>
+        <button class="node" role="tab" aria-selected="false" data-stage="chunk">Chunk</button>
+        <button class="node" role="tab" aria-selected="false" data-stage="embed">Embed</button>
+        <button class="node" role="tab" aria-selected="false" data-stage="retrieve">Retrieve</button>
+      </div>
+      <div class="node-panel" id="node-panel" role="tabpanel">
+        <div class="panel-content" data-for="ingest">
+          <h4>RSS / REST → Postgres</h4>
+          <p>Multi-source feeds normalised into one canonical schema. Idempotent by
+          design — <code>ON CONFLICT DO NOTHING</code> on the article URL, so re-runs never duplicate.</p>
+        </div>
+        <div class="panel-content" data-for="chunk" hidden>
+          <h4>Hand-written recursive splitter</h4>
+          <p>1000-char chunks, 150 overlap, breaking on natural boundaries
+          (paragraph → sentence → word). Written by hand so every trade-off is tunable and explainable.</p>
+        </div>
+        <div class="panel-content" data-for="embed" hidden>
+          <h4>text-embedding-3-small · 1536-dim</h4>
+          <p>Stored in <strong>pgvector</strong> next to the articles — transactional with the data,
+          no extra vector-DB infra. HNSW index, cosine distance.</p>
+        </div>
+        <div class="panel-content" data-for="retrieve" hidden>
+          <h4>Hybrid: vector + full-text, fused by RRF</h4>
+          <p>Semantic arm (cosine) + lexical arm (<code>tsvector</code>/GIN) fused by Reciprocal Rank
+          Fusion (k=60) — ranks, not scores, so nothing needs normalising. Answers cite their sources.</p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ EXPERIENCE ============ -->
+  <!-- ============ WORK: bento ============ -->
+  <section class="section" id="work">
+    <h2>Selected work</h2>
+
+    <div class="bento">
+
+      <!-- Flagship: full width, with a real terminal exchange -->
+      <article class="cell flagship reveal">
+        <div class="cell-head">
+          <div>
+            <h3>News Aggregator + AI News Intelligence</h3>
+            <p class="cell-sub">Async FastAPI · RAG over pgvector · hybrid retrieval · LangGraph agent · safety guards · RAGAS eval</p>
+          </div>
+          <a class="repo-link" href="https://github.com/man-su-97/news-app-server" target="_blank" rel="noopener">View repo ↗</a>
+        </div>
+
+        <div class="terminal" aria-label="Example API call">
+          <div class="term-bar"><span></span><span></span><span></span><em>POST /ai/ask</em></div>
+          <pre><code>$ curl -X POST /ai/ask -d '{"question":"What did the central bank decide?","mode":"hybrid"}'
+
+{
+  "answer": "The bank held rates steady, citing cooling inflation [1][2].",
+  "citations": [
+    { "ref": 1, "title": "Rates held as inflation eases" },
+    { "ref": 2, "title": "Policy panel votes 5-1" }
+  ]
+}  <span class="ok"># grounded — only cited sources returned; empty retrieval → refusal</span></code></pre>
+        </div>
+
+        <div class="glass">
+          <ul>
+            <li>64 tests · TDD</li>
+            <li>RRF fusion · k=60</li>
+            <li>HNSW · cosine · 1536-dim</li>
+            <li>GitHub Actions CI</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- PRISM -->
+      <article class="cell span7 reveal">
+        <div class="cell-head">
+          <h3>PRISM — AI Analytics SaaS</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/Prism" target="_blank" rel="noopener">↗</a>
+        </div>
+        <p>Multi-tenant SaaS: upload CSV/Excel, get dashboards — plus an LLM agent that
+        writes <strong>validated SQL</strong> over DuckDB and streams answers over SSE.</p>
+        <ul class="chips"><li>Next.js</li><li>FastAPI</li><li>DuckDB</li><li>Claude API</li><li>Stripe</li></ul>
+        <div class="glass">
+          <ul>
+            <li>Postgres RLS per-org isolation</li>
+            <li>SSE streaming + prompt caching</li>
+            <li>validate_sql gate — no raw LLM SQL</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Lab -->
+      <article class="cell span5 reveal">
+        <div class="cell-head">
+          <h3>AI Dashboard Lab</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/ai-dashboard-lab" target="_blank" rel="noopener">↗</a>
+        </div>
+        <p>Public prototyping lab — spike fast, keep what survives. Multi-provider LLM
+        chat, document insights, voice input, live video.</p>
+        <ul class="chips"><li>LangChain</li><li>4 LLM providers</li><li>RTSP→HLS</li></ul>
+        <div class="glass">
+          <ul>
+            <li>OpenAI · Claude · Gemini · HF</li>
+            <li>ideas graduate into PRISM</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- Ecom -->
+      <article class="cell span5 reveal">
+        <div class="cell-head">
+          <h3>PleaseYourself — E-Commerce</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/ecommerce-app-py" target="_blank" rel="noopener">↗</a>
+        </div>
+        <p>Full-stack storefront: catalog, cart, auth, orders. Razorpay &amp; Stripe
+        payments, Redis caching, Cloudinary media.</p>
+        <ul class="chips"><li>React</li><li>Express</li><li>MongoDB</li><li>Redis</li></ul>
+        <div class="glass">
+          <ul>
+            <li>HMAC-SHA256 payment verification</li>
+            <li>idempotency + circuit breaker</li>
+          </ul>
+        </div>
+      </article>
+
+      <!-- GitHub CTA -->
+      <article class="cell span7 cell-cta reveal">
+        <h3>More on GitHub</h3>
+        <p>Design docs, migrations, test suites, CI runs — the engineering is public.</p>
+        <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">github.com/man-su-97</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============ ABOUT + EXPERIENCE ============ -->
   <section class="section" id="experience">
-    <h2><span class="h-mark">//</span> Experience</h2>
+    <h2>Experience</h2>
+
+    <div class="about-strip reveal">
+      <div class="avatar"><img src="images/profile.jpg" alt="Portrait of Suman Mandal" width="400" height="400" loading="lazy"></div>
+      <p>
+        Full-stack developer with <strong>2+ years</strong> in production, specialising in
+        GenAI / LLM engineering. I care about the engineering around the model as much as
+        the model: grounding, citations, guards, evaluation, observability.
+        <span class="edu">B.Tech IT — Bengal Institute of Technology, Kolkata (2023)</span>
+      </p>
+    </div>
+
     <ol class="timeline">
       <li class="t-item reveal">
         <div class="t-when">Aug 2025 — Present</div>
         <div class="t-body">
           <h3>Full Stack Developer · A&amp;J Intelli Systems</h3>
-          <p>
-            Led design and delivery of a RAG pipeline — ingestion, chunking, embeddings,
-            pgvector semantic search, and prompt assembly — powering natural-language chat
-            over structured datasets via DuckDB. Built the Next.js + React Query dashboard
-            and FastAPI/NestJS APIs, and drove production delivery: PostgreSQL RLS tenant
-            isolation, Stripe billing, Redis rate limiting, and Docker deployment.
-          </p>
+          <p>Lead the RAG pipeline behind an AI analytics platform — ingestion, chunking,
+          embeddings, pgvector search, prompt assembly — powering natural-language chat over
+          structured datasets via DuckDB. Next.js dashboard, FastAPI/NestJS APIs, PostgreSQL
+          RLS tenant isolation, Stripe billing, Redis rate limiting, Docker.</p>
         </div>
       </li>
       <li class="t-item reveal">
         <div class="t-when">Mar 2024 — Jul 2025</div>
         <div class="t-body">
           <h3>Full Stack Engineer · Nashbud Inc</h3>
-          <p>
-            Shipped a MERN e-commerce platform — catalog, cart with dynamic pricing,
-            multi-step checkout, order tracking. Integrated Razorpay with HMAC-SHA256
-            verification, idempotency guards, and a self-healing circuit breaker; built an
-            admin dashboard with 10+ analytics charts. Migrated MongoDB → PostgreSQL 16.
-          </p>
+          <p>Shipped a MERN e-commerce platform. Razorpay with HMAC-SHA256 verification,
+          idempotency guards, and a self-healing circuit breaker; admin dashboard with 10+
+          analytics charts; MongoDB → PostgreSQL 16 migration.</p>
         </div>
       </li>
       <li class="t-item reveal">
         <div class="t-when">Nov 2023 — Jan 2024</div>
         <div class="t-body">
           <h3>Frontend Intern · upliance.ai</h3>
-          <p>
-            Rewrote device control logic with Redux Toolkit + Thunk; applied the observer
-            pattern for efficient state handling in CookClub.
-          </p>
+          <p>Rewrote device control logic with Redux Toolkit + Thunk; observer pattern for
+          efficient state handling in CookClub.</p>
         </div>
       </li>
     </ol>
   </section>
 
-  <!-- ============ PROJECTS ============ -->
-  <section class="section" id="projects">
-    <h2><span class="h-mark">//</span> Featured projects</h2>
-    <div class="cards">
-
-      <article class="card reveal">
-        <div class="card-top">
-          <h3>News Aggregator + AI News Intelligence</h3>
-          <a class="repo-link" href="https://github.com/man-su-97/news-app-server" target="_blank" rel="noopener">View repo ↗</a>
-        </div>
-        <p>
-          Async FastAPI backend that ingests RSS/REST news into Postgres and layers a full
-          RAG system on top: pgvector semantic search, <strong>hybrid retrieval</strong>
-          (vector + full-text fused by Reciprocal Rank Fusion) with metadata filters,
-          grounded Q&amp;A with real citations, a <strong>LangGraph agent</strong>,
-          prompt-injection &amp; PII guards, RAGAS evaluation, and token/latency logging.
-          60+ tests, TDD, GitHub Actions CI.
-        </p>
-        <ul class="chips">
-          <li>FastAPI</li><li>pgvector</li><li>LangGraph</li><li>OpenAI</li><li>CI</li>
-        </ul>
-      </article>
-
-      <article class="card reveal">
-        <div class="card-top">
-          <h3>PRISM — AI Analytics SaaS</h3>
-          <a class="repo-link" href="https://github.com/man-su-97/Prism" target="_blank" rel="noopener">View repo ↗</a>
-        </div>
-        <p>
-          Multi-tenant SaaS that turns CSV/Excel/Sheets uploads into auto-generated
-          dashboards. An <strong>LLM agent in a structured tool-use loop</strong> generates
-          and validates SQL over a DuckDB + Parquet engine and streams answers over SSE
-          with multi-turn prompt caching. PostgreSQL RLS per-org isolation, 2FA auth,
-          Stripe billing with LLM token entitlements.
-        </p>
-        <ul class="chips">
-          <li>Next.js</li><li>FastAPI</li><li>DuckDB</li><li>Claude API</li><li>Stripe</li>
-        </ul>
-      </article>
-
-      <article class="card reveal">
-        <div class="card-top">
-          <h3>AI Dashboard Lab</h3>
-          <a class="repo-link" href="https://github.com/man-su-97/ai-dashboard-lab" target="_blank" rel="noopener">View repo ↗</a>
-        </div>
-        <p>
-          Prototyping lab where ideas get spiked before production: draggable widget grid,
-          AI chat comparing <strong>multi-provider LLMs</strong> (OpenAI / Anthropic /
-          Gemini / HuggingFace via LangChain), CSV/Excel/PDF document insights, voice
-          input, and a MediaMTX RTSP→HLS gateway for live video widgets.
-        </p>
-        <ul class="chips">
-          <li>Next.js</li><li>LangChain</li><li>Multi-provider</li><li>MediaMTX</li>
-        </ul>
-      </article>
-
-      <article class="card reveal">
-        <div class="card-top">
-          <h3>PleaseYourself — E-Commerce</h3>
-          <a class="repo-link" href="https://github.com/man-su-97/ecommerce-app-py" target="_blank" rel="noopener">View repo ↗</a>
-        </div>
-        <p>
-          Full-stack e-commerce app (React + Express + MongoDB) with product catalog, cart,
-          auth, and order management. <strong>Razorpay &amp; Stripe</strong> payment
-          integrations, Redis caching, and Cloudinary media delivery.
-        </p>
-        <ul class="chips">
-          <li>React</li><li>Express</li><li>MongoDB</li><li>Redis</li><li>Razorpay</li>
-        </ul>
-      </article>
-
-    </div>
-  </section>
-
   <!-- ============ STACK ============ -->
   <section class="section" id="stack">
-    <h2><span class="h-mark">//</span> Stack</h2>
+    <h2>Stack</h2>
     <div class="stack-groups">
       <div class="stack-group reveal">
         <h4>AI &amp; GenAI</h4>
@@ -220,38 +261,45 @@
 
   <!-- ============ CONTACT ============ -->
   <section class="section contact" id="contact">
-    <h2><span class="h-mark">//</span> Contact</h2>
-    <p class="contact-line">
-      Open to GenAI / full-stack roles.
-      The fastest way to reach me is email.
-    </p>
+    <h2>Contact</h2>
+    <p class="contact-line">Open to GenAI / full-stack roles. Email is fastest.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="mailto:sumanmandal15135@gmail.com">sumanmandal15135@gmail.com</a>
-      <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">github.com/man-su-97</a>
+      <a class="btn" href="Suman_Mandal_Resume.pdf" download>Résumé (PDF)</a>
     </div>
   </section>
 
 </main>
 
 <footer class="footer">
-  <div class="dino-wrap" aria-hidden="true">
-    <img src="https://user-images.githubusercontent.com/74038190/212284136-03988914-d899-44b4-b1d9-4eeccf656e44.gif" alt="" loading="lazy" width="520">
+  <!-- Bespoke dino: drawn on canvas in the site palette. Click / Space to jump. -->
+  <div class="dino-shell reveal">
+    <canvas id="dino" width="720" height="140" aria-label="Minimal dinosaur runner — click or press Space to jump"></canvas>
+    <p class="dino-hint">click or press <kbd>Space</kbd> to jump · <span id="dino-score">0</span></p>
   </div>
-  <p class="footer-note">© 2026 Suman Mandal · Built with plain HTML/CSS — no framework needed for a page this size.</p>
+  <p class="footer-note">© 2026 Suman Mandal · plain HTML/CSS/JS — no framework needed for a page this size</p>
 </footer>
 
-<script>
-  // Scroll reveal — skipped entirely if the user prefers reduced motion.
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (!reduce && 'IntersectionObserver' in window) {
-    const io = new IntersectionObserver((entries) => {
-      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
-    }, { threshold: 0.15 });
-    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
-  } else {
-    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
-  }
-</script>
+<!-- ============ COMMAND MENU ============ -->
+<div class="cmdk-overlay" id="cmdk" role="dialog" aria-modal="true" aria-label="Command menu" hidden>
+  <div class="cmdk">
+    <input type="text" id="cmdk-input" placeholder="Type a command or search…" autocomplete="off" spellcheck="false">
+    <ul id="cmdk-list" role="listbox">
+      <li data-action="goto" data-target="#work"><em>Go</em> Selected work</li>
+      <li data-action="goto" data-target="#experience"><em>Go</em> Experience</li>
+      <li data-action="goto" data-target="#stack"><em>Go</em> Stack</li>
+      <li data-action="goto" data-target="#contact"><em>Go</em> Contact</li>
+      <li data-action="copy" data-value="sumanmandal15135@gmail.com"><em>Copy</em> Email address</li>
+      <li data-action="open" data-value="Suman_Mandal_Resume.pdf"><em>Open</em> Résumé (PDF)</li>
+      <li data-action="open" data-value="https://github.com/man-su-97"><em>Open</em> GitHub profile</li>
+      <li data-action="open" data-value="https://github.com/man-su-97/news-app-server"><em>Open</em> news-app-server</li>
+      <li data-action="open" data-value="https://github.com/man-su-97/Prism"><em>Open</em> PRISM</li>
+      <li data-action="open" data-value="https://www.linkedin.com/in/suman-mandal-130024186/"><em>Open</em> LinkedIn</li>
+    </ul>
+    <p class="cmdk-foot"><kbd>↑↓</kbd> navigate · <kbd>Enter</kbd> run · <kbd>Esc</kbd> close</p>
+  </div>
+</div>
 
+<script src="js/app.js" defer></script>
 </body>
 </html>
