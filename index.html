@@ -1,85 +1,257 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Suman Mandal - a devloper</title>
-    <link rel="stylesheet" href="css/styles.css" />
-    <link
-      rel="shortcut icon"
-      href="images/favicon.ico"
-      type="images/favicon.ico"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Comforter&family=Merriweather&family=Montserrat&family=Sacramento&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Suman Mandal — GenAI & Full-Stack Engineer</title>
+<meta name="description" content="Suman Mandal — GenAI & full-stack engineer building RAG pipelines, agents, and the production engineering around them. FastAPI, pgvector, LangGraph, Next.js.">
+<meta property="og:title" content="Suman Mandal — GenAI & Full-Stack Engineer">
+<meta property="og:description" content="RAG pipelines, LangGraph agents, evaluation & safety — shipped as production FastAPI services with Next.js frontends.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%236E40C9'/%3E%3Ctext x='32' y='42' font-family='Arial,sans-serif' font-size='28' font-weight='700' fill='white' text-anchor='middle'%3ESM%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
 
-  <body>
-    <div class="top_container">
-      <img class="top-cloud" src="images/cloud.png" alt="cloud1" />
-      <h1>I'm Suman.</h1>
-      <h2>a developer.</h2>
-      <img class="bottom-cloud" src="images/cloud.png" alt="cloud2" />
-      <img class="mid-mountain" src="images/mountain.png" alt="mountain" />
+<header class="nav">
+  <a class="nav-mark" href="#top" aria-label="Home">SM</a>
+  <nav class="nav-links" aria-label="Sections">
+    <a href="#about">About</a>
+    <a href="#experience">Experience</a>
+    <a href="#projects">Projects</a>
+    <a href="#stack">Stack</a>
+    <a href="#contact">Contact</a>
+  </nav>
+</header>
+
+<main id="top">
+
+  <!-- ============ HERO ============ -->
+  <section class="hero">
+    <p class="eyebrow reveal">GenAI &amp; Full-Stack Engineer · Kolkata, India</p>
+    <h1 class="reveal d1">Suman Mandal</h1>
+    <p class="thesis reveal d2">
+      I build LLM-powered products end to end — RAG pipelines, agents, and the
+      production engineering around them: evaluation, safety, and observability —
+      shipped as FastAPI services with Next.js frontends.
+    </p>
+    <div class="cta-row reveal d3">
+      <a class="btn btn-primary" href="https://github.com/man-su-97" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn" href="https://www.linkedin.com/in/suman-mandal-130024186/" target="_blank" rel="noopener">LinkedIn</a>
+      <a class="btn" href="mailto:sumanmandal15135@gmail.com">Email me</a>
     </div>
 
-    <div class="middle_container">
-      <div class="profile">
-        <img class="img" src="images/profile.jpg" alt="profile-pic" />
-        <h2>Hello.</h2>
-        <p class="intro">
-          I’m a undergrad student at the Department of Information Technology in
-          Bengal Institute Of Technology.
+    <!-- Signature: the RAG pipeline, animated -->
+    <div class="pipeline reveal d4" role="img" aria-label="RAG pipeline: ingest, chunk, embed, retrieve, fuse, generate with citations">
+      <span class="stage s1">ingest</span><span class="arrow">→</span><span class="stage s2">chunk</span><span class="arrow">→</span><span class="stage s3">embed</span><span class="arrow">→</span><span class="stage s4">retrieve</span><span class="arrow">→</span><span class="stage s5">fuse</span><span class="arrow">→</span><span class="stage s6">generate <em>✓ cited</em></span>
+    </div>
+  </section>
+
+  <!-- ============ ABOUT ============ -->
+  <section class="section" id="about">
+    <h2><span class="h-mark">//</span> About</h2>
+    <div class="about-grid">
+      <div class="avatar" aria-hidden="true"><span>SM</span></div>
+      <div class="about-text">
+        <p>
+          Full-stack developer with <strong>2+ years</strong> of production experience,
+          now specialising in <strong>GenAI / LLM engineering</strong>. At
+          <strong>A&amp;J Intelli Systems</strong> I lead the RAG pipeline behind an AI
+          analytics platform that turns CSV/Excel datasets into dashboards with a
+          natural-language chat interface.
         </p>
-        <p>I am an App and Web developer . I ❤️ cars and motorbikes.</p>
-      </div>
-      <hr />
-      <div class="skills">
-        <h2>My Skills.</h2>
-        <div class="skill-row">
-          <img class="skill-icon" src="images/developer.png" alt="skill_icon" />
-          <h3>Design & Development</h3>
-          <p>
-            I started learning to code at my first year of college because I
-            wanted to make my own app. Over time,I have gained a wealth of
-            experience designing and developing mobile and web applications.
-          </p>
-        </div>
-        <div class="hobby-row">
-          <img class="hobby-icon" src="images/motocross.png" alt="hobby" />
-          <h3>Adventure and Riding</h3>
-          <p>
-            I love to ride bikes. Doing adeventure sport, exploring new places.
-          </p>
-        </div>
-      </div>
-      <hr />
-      <div class="contact-me">
-        <h2>Get In Touch</h2>
-        <h3>
-          If you need any custom made Website and App , feel free to contact.
-        </h3>
-        <p class="contact-msg">We can also talk about adventure riding and travelling.</p>
-        <a class="btn" href="mailto:sumanmandal15135@gmail.com">CONTACT ME</a>
+        <p>
+          I care about the engineering around the model as much as the model itself:
+          grounded generation with real citations, hybrid retrieval (semantic + full-text
+          fused by Reciprocal Rank Fusion), prompt-injection and PII guards, retrieval
+          metrics + RAGAS evaluation, and token/latency observability — all tested,
+          containerised, and gated by CI.
+        </p>
+        <p class="edu">B.Tech, Information Technology — Bengal Institute of Technology, Kolkata (2023)</p>
       </div>
     </div>
+  </section>
 
-    <div class="bottom_container">
-      <a
-        class="footer-link"
-        href="https://www.linkedin.com/in/suman-mandal-130024186/"
-        >LinkedIn</a
-      >
-      <a class="footer-link" href="https://twitter.com/">Twitter</a>
-      <a class="footer-link" href="https://man-su-97.github.io/my-cv/"
-        >Website</a
-      >
-      <p class="copy-right">© 2022 Suman Mandal @ man-su-97.</p>
+  <!-- ============ EXPERIENCE ============ -->
+  <section class="section" id="experience">
+    <h2><span class="h-mark">//</span> Experience</h2>
+    <ol class="timeline">
+      <li class="t-item reveal">
+        <div class="t-when">Aug 2025 — Present</div>
+        <div class="t-body">
+          <h3>Full Stack Developer · A&amp;J Intelli Systems</h3>
+          <p>
+            Led design and delivery of a RAG pipeline — ingestion, chunking, embeddings,
+            pgvector semantic search, and prompt assembly — powering natural-language chat
+            over structured datasets via DuckDB. Built the Next.js + React Query dashboard
+            and FastAPI/NestJS APIs, and drove production delivery: PostgreSQL RLS tenant
+            isolation, Stripe billing, Redis rate limiting, and Docker deployment.
+          </p>
+        </div>
+      </li>
+      <li class="t-item reveal">
+        <div class="t-when">Mar 2024 — Jul 2025</div>
+        <div class="t-body">
+          <h3>Full Stack Engineer · Nashbud Inc</h3>
+          <p>
+            Shipped a MERN e-commerce platform — catalog, cart with dynamic pricing,
+            multi-step checkout, order tracking. Integrated Razorpay with HMAC-SHA256
+            verification, idempotency guards, and a self-healing circuit breaker; built an
+            admin dashboard with 10+ analytics charts. Migrated MongoDB → PostgreSQL 16.
+          </p>
+        </div>
+      </li>
+      <li class="t-item reveal">
+        <div class="t-when">Nov 2023 — Jan 2024</div>
+        <div class="t-body">
+          <h3>Frontend Intern · upliance.ai</h3>
+          <p>
+            Rewrote device control logic with Redux Toolkit + Thunk; applied the observer
+            pattern for efficient state handling in CookClub.
+          </p>
+        </div>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ============ PROJECTS ============ -->
+  <section class="section" id="projects">
+    <h2><span class="h-mark">//</span> Featured projects</h2>
+    <div class="cards">
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>News Aggregator + AI News Intelligence</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/news-app-server" target="_blank" rel="noopener">View repo ↗</a>
+        </div>
+        <p>
+          Async FastAPI backend that ingests RSS/REST news into Postgres and layers a full
+          RAG system on top: pgvector semantic search, <strong>hybrid retrieval</strong>
+          (vector + full-text fused by Reciprocal Rank Fusion) with metadata filters,
+          grounded Q&amp;A with real citations, a <strong>LangGraph agent</strong>,
+          prompt-injection &amp; PII guards, RAGAS evaluation, and token/latency logging.
+          60+ tests, TDD, GitHub Actions CI.
+        </p>
+        <ul class="chips">
+          <li>FastAPI</li><li>pgvector</li><li>LangGraph</li><li>OpenAI</li><li>CI</li>
+        </ul>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>PRISM — AI Analytics SaaS</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/Prism" target="_blank" rel="noopener">View repo ↗</a>
+        </div>
+        <p>
+          Multi-tenant SaaS that turns CSV/Excel/Sheets uploads into auto-generated
+          dashboards. An <strong>LLM agent in a structured tool-use loop</strong> generates
+          and validates SQL over a DuckDB + Parquet engine and streams answers over SSE
+          with multi-turn prompt caching. PostgreSQL RLS per-org isolation, 2FA auth,
+          Stripe billing with LLM token entitlements.
+        </p>
+        <ul class="chips">
+          <li>Next.js</li><li>FastAPI</li><li>DuckDB</li><li>Claude API</li><li>Stripe</li>
+        </ul>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>AI Dashboard Lab</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/ai-dashboard-lab" target="_blank" rel="noopener">View repo ↗</a>
+        </div>
+        <p>
+          Prototyping lab where ideas get spiked before production: draggable widget grid,
+          AI chat comparing <strong>multi-provider LLMs</strong> (OpenAI / Anthropic /
+          Gemini / HuggingFace via LangChain), CSV/Excel/PDF document insights, voice
+          input, and a MediaMTX RTSP→HLS gateway for live video widgets.
+        </p>
+        <ul class="chips">
+          <li>Next.js</li><li>LangChain</li><li>Multi-provider</li><li>MediaMTX</li>
+        </ul>
+      </article>
+
+      <article class="card reveal">
+        <div class="card-top">
+          <h3>PleaseYourself — E-Commerce</h3>
+          <a class="repo-link" href="https://github.com/man-su-97/ecommerce-app-py" target="_blank" rel="noopener">View repo ↗</a>
+        </div>
+        <p>
+          Full-stack e-commerce app (React + Express + MongoDB) with product catalog, cart,
+          auth, and order management. <strong>Razorpay &amp; Stripe</strong> payment
+          integrations, Redis caching, and Cloudinary media delivery.
+        </p>
+        <ul class="chips">
+          <li>React</li><li>Express</li><li>MongoDB</li><li>Redis</li><li>Razorpay</li>
+        </ul>
+      </article>
+
     </div>
-  </body>
+  </section>
+
+  <!-- ============ STACK ============ -->
+  <section class="section" id="stack">
+    <h2><span class="h-mark">//</span> Stack</h2>
+    <div class="stack-groups">
+      <div class="stack-group reveal">
+        <h4>AI &amp; GenAI</h4>
+        <ul class="chips big">
+          <li>RAG</li><li>LangChain</li><li>LangGraph</li><li>OpenAI</li><li>Claude API</li>
+          <li>pgvector</li><li>Embeddings</li><li>RAGAS</li><li>Prompt engineering</li><li>DuckDB</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Languages &amp; frameworks</h4>
+        <ul class="chips big">
+          <li>Python</li><li>TypeScript</li><li>JavaScript</li><li>SQL</li>
+          <li>FastAPI</li><li>Next.js</li><li>React</li><li>Node.js</li><li>NestJS</li><li>Express</li>
+        </ul>
+      </div>
+      <div class="stack-group reveal">
+        <h4>Data &amp; infra</h4>
+        <ul class="chips big">
+          <li>PostgreSQL</li><li>Redis</li><li>MongoDB</li><li>Docker</li><li>GitHub Actions</li><li>Vercel</li><li>Git</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTACT ============ -->
+  <section class="section contact" id="contact">
+    <h2><span class="h-mark">//</span> Contact</h2>
+    <p class="contact-line">
+      Open to GenAI / full-stack roles.
+      The fastest way to reach me is email.
+    </p>
+    <div class="cta-row">
+      <a class="btn btn-primary" href="mailto:sumanmandal15135@gmail.com">sumanmandal15135@gmail.com</a>
+      <a class="btn" href="https://github.com/man-su-97" target="_blank" rel="noopener">github.com/man-su-97</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <div class="dino-wrap" aria-hidden="true">
+    <img src="https://user-images.githubusercontent.com/74038190/212284136-03988914-d899-44b4-b1d9-4eeccf656e44.gif" alt="" loading="lazy" width="520">
+  </div>
+  <p class="footer-note">© 2026 Suman Mandal · Built with plain HTML/CSS — no framework needed for a page this size.</p>
+</footer>
+
+<script>
+  // Scroll reveal — skipped entirely if the user prefers reduced motion.
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (!reduce && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+  } else {
+    document.querySelectorAll('.reveal').forEach(el => el.classList.add('in'));
+  }
+</script>
+
+</body>
 </html>
