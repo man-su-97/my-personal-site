@@ -1,0 +1,3 @@
+# Raw source GIFs at the repo root (12MB+ each) — the site ships the
+# optimized .webm/.gif copies in images/ instead.
+/*.gif

@@ -26,6 +26,31 @@ if (bar && !reduce) {
   onScroll();
 }
 
+/* ---------- 1d. mobile nav (hamburger) ---------- */
+const navEl = document.querySelector(".nav");
+const navToggle = document.getElementById("nav-toggle");
+if (navEl && navToggle) {
+  const setOpen = (open) => {
+    navEl.classList.toggle("open", open);
+    navToggle.setAttribute("aria-expanded", String(open));
+  };
+  navToggle.addEventListener("click", () => setOpen(!navEl.classList.contains("open")));
+  navEl.querySelectorAll(".nav-links a").forEach((a) => a.addEventListener("click", () => setOpen(false)));
+  document.addEventListener("keydown", (e) => { if (e.key === "Escape") setOpen(false); });
+}
+
+/* ---------- 1e. ambient videos: play only while on screen ---------- */
+const ambients = document.querySelectorAll("video.ambient");
+if (ambients.length && !reduce && "IntersectionObserver" in window) {
+  const vio = new IntersectionObserver((entries) => {
+    for (const e of entries) {
+      if (e.isIntersecting) e.target.play().catch(() => {});
+      else e.target.pause();
+    }
+  }, { threshold: 0.15 });
+  ambients.forEach((v) => vio.observe(v));
+}
+
 /* ---------- 2. typed rotator: real work, typed live ---------- */
 const typedEl = document.getElementById("typed");
 if (typedEl) {
