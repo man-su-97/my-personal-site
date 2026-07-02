@@ -85,18 +85,18 @@ a:focus-visible, button:focus-visible, input:focus-visible {
   border-bottom: 1px solid var(--line);
 }
 
+/* logo: profile photo in a mint ring */
 .nav-mark {
-  font-family: var(--display);
-  font-weight: 700;
-  color: var(--bg);
-  text-decoration: none;
-  width: 36px;
-  height: 36px;
-  display: grid;
-  place-items: center;
-  border-radius: 9px;
-  background: var(--mint);
+  display: block;
+  width: 38px;
+  height: 38px;
+  border-radius: 11px;
+  border: 2px solid var(--mint);
+  overflow: hidden;
+  flex: 0 0 auto;
 }
+
+.nav-mark img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .nav-links { display: flex; gap: clamp(14px, 2.5vw, 28px); margin-right: auto; }
 
@@ -389,21 +389,9 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 }
 .repo-link:hover { text-decoration: underline; }
 
-.cell-cta { display: grid; place-content: center; text-align: center; background: var(--surface-2); }
+.cell-cta { display: grid; place-content: center; text-align: center; gap: 6px; background: var(--surface-2); }
 .cell-cta p { margin: 0 0 12px; }
 
-/* ambient video behind the GitHub CTA — dimmed so the mint pixels read as texture */
-.cell-bg {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  opacity: 0.3;
-  pointer-events: none;
-}
-
-.cta-inner { position: relative; z-index: 1; display: grid; gap: 6px; justify-items: center; text-shadow: 0 1px 10px rgba(9, 9, 11, 0.85); }
 
 /* glass reveal: blurred layer slides up with the real numbers */
 .glass {
@@ -593,7 +581,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   padding: 14px 14px 10px;
 }
 
-#dino { width: 100%; height: auto; display: block; cursor: pointer; border-radius: 8px; }
+.contrib-game { width: 100%; height: auto; display: block; border-radius: 8px; }
 
 .dino-hint { font-family: var(--mono); font-size: 0.72rem; color: var(--muted); margin: 8px 0 0; }
 .dino-hint kbd { font-size: 0.62rem; }
