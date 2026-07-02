@@ -554,6 +554,9 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   padding-top: 16vh;
 }
 
+/* `display: grid` above would defeat the hidden attribute — restore it explicitly. */
+.cmdk-overlay[hidden] { display: none; }
+
 .cmdk {
   width: min(560px, calc(100vw - 40px));
   background: var(--surface);
