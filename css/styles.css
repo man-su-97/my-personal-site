@@ -552,7 +552,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 .contact { padding-bottom: 8px; }
 .contact-line { color: var(--muted); margin: 0 0 22px; }
 
-.contact-wrap { display: flex; align-items: center; justify-content: center; gap: 28px; flex-wrap: wrap; }
+.contact-wrap { display: flex; align-items: center; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
 
 .contact-gif {
   width: 148px;
@@ -645,20 +645,6 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
   /* stack avatar over text before the row gets too cramped */
   .about-strip { flex-direction: column; align-items: flex-start; }
-
-  /* space-invaders clip bleeds edge-to-edge, breaking out of the footer's side padding */
-  .dino-shell {
-    max-width: none;
-    margin-left: -20px;
-    margin-right: -20px;
-    border-left: none;
-    border-right: none;
-    border-radius: 0;
-    padding-left: 0;
-    padding-right: 0;
-  }
-  .contrib-game { border-radius: 0; }
-  .dino-hint { padding: 0 14px; }
 
   /* decorative only — drop it on mobile to keep the contact block tight */
   .contact-gif { display: none; }
