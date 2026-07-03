@@ -482,17 +482,6 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
 .avatar img { width: 100%; height: 100%; object-fit: cover; border-radius: 18px; display: block; }
 
-/* lofi loop bookends the strip: photo on the left, desk scene on the right */
-.strip-gif {
-  flex: 0 0 116px;
-  width: 116px;
-  height: 116px;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 1px solid var(--line);
-  margin-left: auto;
-}
-
 .timeline { list-style: none; margin: 0; padding: 0; border-left: 1px solid var(--line); }
 
 .t-item { position: relative; padding: 0 0 32px 30px; }
@@ -654,9 +643,8 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
   .nav-links a:last-child { border-bottom: none; }
 
-  /* stack avatar / text / gif before the row gets too cramped to fit all three */
+  /* stack avatar over text before the row gets too cramped */
   .about-strip { flex-direction: column; align-items: flex-start; }
-  .strip-gif { width: 100%; height: 150px; flex-basis: auto; margin-left: 0; }
 
   /* space-invaders clip bleeds edge-to-edge, breaking out of the footer's side padding */
   .dino-shell {
