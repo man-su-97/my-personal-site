@@ -86,6 +86,8 @@ function selectStage(stage) {
     const on = n.dataset.stage === stage;
     n.classList.toggle("active", on);
     n.setAttribute("aria-selected", String(on));
+    n.tabIndex = on ? 0 : -1; // roving tabindex: Tab enters the tablist once, arrows move within
+    if (on) document.getElementById("node-panel").setAttribute("aria-labelledby", n.id);
   });
   panels.forEach((p) => { p.hidden = p.dataset.for !== stage; });
 }

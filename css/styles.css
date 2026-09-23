@@ -167,7 +167,7 @@ kbd {
    hero copy column is capped, so whitespace does the composition work. */
 main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
-.section { padding: clamp(56px, 9vw, 100px) 0 0; scroll-margin-top: 24px; /* keep headings clear of the sticky nav on anchor jumps */ }
+.section { padding: clamp(56px, 9vw, 100px) 0 0; scroll-margin-top: 84px; /* sticky nav is ~67px tall — keep headings clear of it on anchor jumps */ }
 
 .section h2 {
   font-family: var(--display);
@@ -213,6 +213,8 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
   letter-spacing: 0.04em;
   margin: 0 0 16px;
 }
+
+.eyebrow span { white-space: nowrap; } /* wrap only between phrases, never inside one */
 
 .hero h1 {
   font-family: var(--display);
@@ -500,6 +502,7 @@ main { max-width: 1120px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 44px); }
 
 .t-when { font-family: var(--mono); font-size: 0.76rem; color: var(--mint); margin-bottom: 4px; }
 .t-body h3 { font-family: var(--display); font-size: 1.1rem; font-weight: 600; margin: 0 0 8px; }
+.t-where { font-family: var(--mono); font-size: 0.74rem; color: var(--muted); margin: -4px 0 8px; }
 .t-body p { margin: 0; color: var(--muted); font-size: 0.94rem; }
 
 /* ---------- chips / stack ---------- */
